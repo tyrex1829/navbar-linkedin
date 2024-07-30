@@ -1,20 +1,42 @@
 import { useState } from "react";
 import "./App.css";
+import { RecoilRoot, useRecoilValue } from "recoil";
+import {
+  jobsAtom,
+  messagingAtom,
+  networkAtom,
+  notificationAtom,
+} from "./atoms";
 
 function App() {
-  const [networkCount, setNetworkCount] = useState(0);
-  const [jobCount, setJobCount] = useState(0);
-  const [messagingCount, setMessagingCount] = useState(0);
-  const [notificationCount, setNotificationCount] = useState(0);
+  return (
+    <RecoilRoot>
+      <MainApp />
+    </RecoilRoot>
+  );
+}
+
+function MainApp() {
+  const networkCount = useRecoilValue(networkAtom);
+  const jobsCount = useRecoilValue(jobsAtom);
+  const MessagingCount = useRecoilValue(messagingAtom);
+  const notificationCount = useRecoilValue(notificationAtom);
 
   return (
     <>
       <button>Home</button>
 
-      <button>My network ({networkCount})</button>
-      <button>Jobs ({jobCount})</button>
-      <button>Messaging ({messagingCount})</button>
-      <button>Notification ({notificationCount})</button>
+      <button>My network ({networkCount >= 100 ? "99+" : networkCount})</button>
+
+      <button>Jobs ({jobsCount >= 100 ? "99+" : jobsCount})</button>
+
+      <button>
+        Messaging ({MessagingCount >= 100 ? "99+" : MessagingCount})
+      </button>
+
+      <button>
+        Notification ({notificationCount >= 100 ? "99+" : notificationCount})
+      </button>
 
       <button>Me</button>
     </>
