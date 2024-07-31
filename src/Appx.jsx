@@ -16,16 +16,20 @@ function Appx() {
   );
 }
 
+// this is not the right way to do async queries in recoil, because there is a flash first default values then api values, and ugly code, axios fetch needs to be inside atom -> default and directly take api values from there.
+
+// so we want rather then return a sync object here, I actually hit the backend, get the data and store here, move useEffect there.
+
 function RealApp() {
   const [networkCount, setNetworkCount] = useRecoilState(notifications);
   const totalNotificationCount = useRecoilValue(totalNotificationSelector);
 
-  useEffect(() => {
-    // fetch
-    axios.get("https://sum-server.100xdevs.com/notifications").then((res) => {
-      setNetworkCount(res.data);
-    });
-  }, []);
+  //   useEffect(() => {
+  //     // fetch
+  //     axios.get("https://sum-server.100xdevs.com/notifications").then((res) => {
+  //       setNetworkCount(res.data);
+  //     });
+  //   }, []);
 
   return (
     <>
